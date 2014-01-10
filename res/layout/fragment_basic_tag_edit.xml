@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tagEditorContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".BasicTagEditFragment" >
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <EditText
+        android:id="@+id/editAlbum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/hint_album" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/editArtist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="@string/hint_artist" />
+
+</LinearLayout>

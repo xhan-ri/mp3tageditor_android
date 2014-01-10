@@ -4,24 +4,23 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.database.DataSetObserver;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Menu;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
-public class HelloAndroidActivity extends Activity {
+import com.github.xhan.mp3tageditor_android.fragments.BasicTagEditFragment;
+import com.github.xhan.mp3tageditor_android.fragments.BasicTagEditFragment.OnFragmentInteractionListener;
+
+public class TagEditorActivity extends FragmentActivity implements OnFragmentInteractionListener {
 
 	private static final int SELECT_FOLDER_REQUEST = 100;
     /**
@@ -33,7 +32,7 @@ public class HelloAndroidActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_tag_editor);
         selectFolder();
     }
 
@@ -55,10 +54,17 @@ public class HelloAndroidActivity extends Activity {
 		if (SELECT_FOLDER_REQUEST == requestCode) {
 			Toast.makeText(this, data.getDataString(), Toast.LENGTH_LONG).show();
 			List<File> fileList = getFilesInFolder(data.getData().getPath());
-			ListView lv = (ListView)this.findViewById(R.id.folderListView);
-			lv.setAdapter(new FilesArrayAdapter(this, fileList));
+			loadTagEditor();
 		}
 		super.onActivityResult(requestCode, resultCode, data);
+	}
+	
+	private void loadTagEditor() {
+		BasicTagEditFragment tagEditFragment = new BasicTagEditFragment();
+		FragmentManager fragmentManager = getSupportFragmentManager();
+		FragmentTransaction trans = fragmentManager.beginTransaction();
+		trans.add(R.id.tagEditorContainer, tagEditFragment);
+		trans.commit();
 	}
     
     private List<File> getFilesInFolder(String folder) {
@@ -75,5 +81,10 @@ public class HelloAndroidActivity extends Activity {
     	}
     	return Arrays.asList(files);
     }
+
+	public void onFragmentInteraction(Uri uri) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
